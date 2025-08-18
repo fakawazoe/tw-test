@@ -1,0 +1,170 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "maple",
+  "name": "Example Co.",
+  "description": "Example Co. is a company that provides example content and placeholder text.",
+  "colors": {
+    "primary": "#3B82F6",
+    "light": "#F8FAFC",
+    "dark": "#0F172A"
+  },
+  "navigation": {
+    "dropdowns": [
+      {
+        "dropdown": "Documentation",
+        "icon": "book",
+        "description": "How to use the Example Co. product",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": [
+              "index",
+              "quickstart"
+            ]
+          },
+          {
+            "group": "Customization",
+            "pages": [
+              "settings",
+              "users",
+              "features"
+            ]
+          },
+          {
+            "group": "Billing",
+            "pages": [
+              "billing/overview",
+              "billing/payments",
+              "billing/subscriptions"
+            ]
+          }
+        ]
+      },
+      {
+        "dropdown": "API reference",
+        "icon": "terminal",
+        "description": "How to use the Example Co. API",
+        "groups": [
+          {
+            "group": "API reference",
+            "pages": [
+              "api-reference/introduction"
+            ]
+          },
+          {
+            "group": "Endpoints",
+            "openapi": {
+              "source": "openapi.json"
+            }
+          }
+        ]
+      },
+      {
+        "dropdown": "Changelog",
+        "icon": "history",
+        "description": "Updates and changes",
+        "pages": [
+          "changelog"
+        ]
+      }
+    ]
+  },
+  "api": {
+    "playground": {
+      "display": "interactive"
+    },
+    "examples": {
+      "languages": ["javascript", "curl", "python"]
+    }
+  },
+  "logo": {
+    "light": "/logo-light.svg",
+    "dark": "/logo-dark.svg",
+    "href": "https://example.com"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Community",
+        "href": "https://example.com/community"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Get Started",
+      "href": "https://example.com/start"
+    }
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/example",
+      "linkedin": "https://www.linkedin.com/company/example",
+      "github": "https://github.com/example",
+      "slack": "https://example.com/community"
+    },
+    "links": [
+      {
+        "header": "Resources",
+        "items": [
+          {
+            "label": "Customers",
+            "href": "https://example.com/customers"
+          },
+          {
+            "label": "Enterprise",
+            "href": "https://example.com/enterprise"
+          },
+          {
+            "label": "Request Preview",
+            "href": "https://example.com/preview"
+          }
+        ]
+      },
+      {
+        "header": "Company",
+        "items": [
+          {
+            "label": "Careers",
+            "href": "https://example.com/careers"
+          },
+          {
+            "label": "Blog",
+            "href": "https://example.com/blog"
+          },
+          {
+            "label": "Privacy Policy",
+            "href": "https://example.com/legal/privacy"
+          }
+        ]
+      }
+    ]
+  },
+  "integrations": {
+    "ga4": {
+      "measurementId": "G-XXXXXXXXXX"
+    },
+    "koala": {
+      "publicApiKey": "pk_example_key_123"
+    },
+    "telemetry": {
+      "enabled": true
+    },
+    "cookies": {
+      "key": "example_cookie_key",
+      "value": "example_cookie_value"
+    }
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude"
+    ]
+  },
+  "errors": {
+    "404": {
+      "redirect": true
+    }
+  }
+}
