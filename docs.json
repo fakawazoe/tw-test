@@ -13,12 +13,12 @@
                 {
                     "anchor": "Guides",
                     "icon": "book",
-                    "href": "guides"
+                    "href": "https://leriantest.mintlify.app/guides"
                 },
                 {
                     "anchor": "API Reference",
                     "icon": "terminal",
-                    "href": "api-reference"
+                    "href": "https://leriantest.mintlify.app/api-reference"
                 }
             ]
         },
@@ -46,9 +46,9 @@
                         "groups": [
                             {
                                 "group": "Midaz APIs",
-                                "pages": [
-                                    "api-reference/midaz/midaz-onboarding.yaml"
-                                ]
+                                "openapi": {
+                                    "source": "api-reference/midaz/midaz-onboarding.yaml"
+                                }
                             }
                         ]
                     }
