@@ -8,29 +8,11 @@
         "dark": "#FEED02"
     },
     "navigation": {
-        "global": {
-            "anchors": [
-                {
-                    "anchor": "Guides",
-                    "icon": "book",
-                    "href": "https://leriantest.mintlify.app/guides"
-                },
-                {
-                    "anchor": "API Reference",
-                    "icon": "terminal",
-                    "href": "https://leriantest.mintlify.app/api-reference"
-                }
-            ]
-        },
-        "languages": [
-            {
-                "language": "en",
-                "dropdowns": [
-                    {
-                        "dropdown": "Guides",
-                        "icon": "book",
-                        "description": "How to use the Example Co. product",
-                        "groups": [
+        "tabs": [
+          {
+            "tab": "Guides",
+            "icon": "book",
+            "groups": [
                             {
                                 "group": "Home",
                                 "pages": [
@@ -38,12 +20,12 @@
                                 ]
                             }
                         ]
-                    },
-                    {
-                        "dropdown": "API reference",
-                        "icon": "terminal",
-                        "description": "How to use the Example Co. API",
-                        "groups": [
+            
+          },
+          {
+            "tab": "API Reference",
+            "icon": "terminal",
+            "groups": [
                             {
                                 "group": "Midaz APIs",
                                 "openapi": {
@@ -51,9 +33,7 @@
                                 }
                             }
                         ]
-                    }
-                ]
-            }
+          }
         ]
     },
     "navbar": {
