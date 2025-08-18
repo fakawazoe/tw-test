@@ -11,33 +11,16 @@
   "navigation": {
     "dropdowns": [
       {
-        "dropdown": "Documentation",
+        "dropdown": "Guides",
         "icon": "book",
         "description": "How to use the Example Co. product",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Home",
             "pages": [
-              "index",
-              "quickstart"
+              "guides/home/welcome"
             ]
-          },
-          {
-            "group": "Customization",
-            "pages": [
-              "settings",
-              "users",
-              "features"
-            ]
-          },
-          {
-            "group": "Billing",
-            "pages": [
-              "billing/overview",
-              "billing/payments",
-              "billing/subscriptions"
-            ]
-          }
+          }      
         ]
       },
       {
@@ -46,41 +29,14 @@
         "description": "How to use the Example Co. API",
         "groups": [
           {
-            "group": "API reference",
+            "group": "Midaz APIs",
             "pages": [
-              "api-reference/introduction"
+              "api-reference/midaz/midaz-onboarding.yaml"
             ]
-          },
-          {
-            "group": "Endpoints",
-            "openapi": {
-              "source": "openapi.json"
-            }
           }
-        ]
-      },
-      {
-        "dropdown": "Changelog",
-        "icon": "history",
-        "description": "Updates and changes",
-        "pages": [
-          "changelog"
         ]
       }
     ]
-  },
-  "api": {
-    "playground": {
-      "display": "interactive"
-    },
-    "examples": {
-      "languages": ["javascript", "curl", "python"]
-    }
-  },
-  "logo": {
-    "light": "/logo-light.svg",
-    "dark": "/logo-dark.svg",
-    "href": "https://example.com"
   },
   "navbar": {
     "links": [
@@ -139,30 +95,7 @@
       }
     ]
   },
-  "integrations": {
-    "ga4": {
-      "measurementId": "G-XXXXXXXXXX"
-    },
-    "koala": {
-      "publicApiKey": "pk_example_key_123"
-    },
-    "telemetry": {
-      "enabled": true
-    },
-    "cookies": {
-      "key": "example_cookie_key",
-      "value": "example_cookie_value"
-    }
-  },
-  "contextual": {
-    "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude"
-    ]
-  },
-  "errors": {
+    "errors": {
     "404": {
       "redirect": true
     }

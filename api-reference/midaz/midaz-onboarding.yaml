@@ -1,0 +1,3340 @@
+openapi: 3.1.0
+info:
+  title: Midaz Onboarding
+  description: Midaz Open Source Endpoints
+  version: 2.0.0
+servers:
+  - url: https://onboarding.sandbox.midaz.io
+tags:
+  - name: MIDAZ Onboarding
+paths:
+  
+  /v1/organizations:
+    post:
+      summary: Create an Organization
+      description: Use this endpoint to create an Organization. You can create multiple Organizations, but they must be added one at a time.
+      tags:
+        - Organizations API
+      parameters:
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOrganizationRequest"
+            example:
+              legalName: Hilll - Hessel
+              parentOrganizationId: e1ed3a74-654a-4b44-ad7d-37a9fac46d71
+              doingBusinessAs: Medhurst and Sons
+              legalDocument: '22367046391413'
+              status:
+                code: ACTIVE
+                description: acies stillicidium angustus vulgaris contego
+              address:
+                line1: 138 West Street
+                line2: Apt. 458
+                zipCode: 97446-2761
+                city: Sandyview
+                state: Massachusetts
+                country: BI
+              metadata: {}
+      responses:
+        '201':
+          description: Indicates that the resource was successfully created and the operation was completed as expected.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateOrganizationResponse"
+              example:
+                id: cc15194a-6bc9-4ebb-b15d-43411a54ba4b
+                parentOrganizationId: null
+                legalName: Empresa Teste Ltda
+                doingBusinessAs: Empresa Teste
+                legalDocument: '86820799000188'
+                address:
+                  line1: Rua Botucatu, 10
+                  line2: Casa B
+                  zipCode: '04023060'
+                  city: São Paulo
+                  state: SP
+                  country: BR
+                status:
+                  code: ACTIVE
+                  description: null
+                createdAt: 2024-02-08T16:59:31+0300
+                updatedAt: 2024-02-08T16:59:31+0300
+                deletedAt: null
+          headers: {}
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0009:
+                  $ref: "#/components/examples/Error0009"
+                Error0032:
+                  $ref: "#/components/examples/Error0032"
+                Error0047:
+                  $ref: "#/components/examples/Error0047"
+                Error0053:
+                  $ref: "#/components/examples/Error0053"
+                Error0067:
+                  $ref: "#/components/examples/Error0067"
+                Error0079:
+                  $ref: "#/components/examples/Error0079"                  
+          headers: {}
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0039:
+                  $ref: "#/components/examples/Error0039"
+      security: []
+    get:
+      summary: List Organizations
+      description: Use this endpoint to retrieve the details of all the Organizations you have created.
+      tags:
+        - Organizations API
+      parameters:
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+        - name: limit
+          in: query
+          description: "The maximum number of items to include in the response. Max: 100"
+          required: true
+          example: '10'
+          schema:
+            type: string
+        - name: start_date
+          in: query
+          description: The beginning of the period you want to retrieve. You must also include the end_date.
+          required: false
+          example: '2021-01-01'
+          schema:
+            type: string
+        - name: end_date
+          in: query
+          description: The end of the period you want to retrieve. You must also include the start_date.
+          required: false
+          example: '2025-01-01'
+          schema:
+            type: string
+        - name: sort_order
+          in: query
+          description: The order used to sort the results.
+          required: false
+          example: asc
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: The number of the page that you want to retrieve.
+          required: true
+          example: '1'
+          schema:
+            type: string
+        - name: metadata.key
+          in: query
+          description: Any Metadata the entity should have.
+          required: false
+          example: mymetadata
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CreateOrganizationResponse'
+                  page:
+                    type: integer
+                    description: The number of pages returned.
+                  limit:
+                    type: integer
+                    description: The maximum number of items included in the response.
+          headers: {}
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0079:
+                  $ref: "#/components/examples/Error0079"
+                Error0080:
+                  $ref: "#/components/examples/Error0080"
+                Error0081:
+                  $ref: "#/components/examples/Error0081"
+                Error0083:
+                  $ref: "#/components/examples/Error0083"
+      security: []
+  
+  /v1/organizations/{organization_id}:
+    get:
+      summary: Retrieve an Organization
+      description: Use this endpoint to retrieve the details of a specific Organization by its identifier.
+      tags:
+        - Organizations API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+      responses:
+        '200':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateOrganizationResponse'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorFormat'
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorFormat'
+              examples:
+                Error0007:
+                  $ref: "#/components/examples/Error0007"
+          headers: {}
+      security: []
+    patch:
+      summary: Update an Organization
+      description: Use this endpoint to update the details of an Organization.
+      tags:
+        - Organizations API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrganizationRequest'
+            example: |-
+              {
+                "legalName": "Hilll - Hessel",
+                "parentOrganizationId": "e1ed3a74-654a-4b44-ad7d-37a9fac46d71",
+                "doingBusinessAs": "The ledger.io",
+                "status": {
+                    "code": "BLOCKED",
+                    "description": "Teste Blocked"
+                },
+                "address": {
+                    "line1": "Avenida Paulista, 1234",
+                    "line2": "CJ 203",
+                    "zipCode": "04696040",
+                    "city": "São Paulo",
+                    "state": "São Paulo",
+                    "country": "Brasil"
+                },
+                "metadata": {
+                    "chave": "metadata_chave_update",
+                    "bitcoinn": "randomBitcoin",
+                    "boolean": true,
+                    "double": 10.5,
+                    "int": 1
+                }
+              }
+      responses:
+        '200':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateOrganizationResponse'
+          headers: {}
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorFormat'
+              examples:
+                Error0047:
+                  $ref: "#/components/examples/Error0047"
+                Error0053:
+                  $ref: "#/components/examples/Error0053"
+                Error0067:
+                  $ref: "#/components/examples/Error0067"
+          headers: {}
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorFormat'
+              examples:
+                Error0039:
+                  $ref: "#/components/examples/Error0039"
+                Error0007:
+                  $ref: "#/components/examples/Error0007"
+      security: []
+    delete:
+      summary: Delete an Organization
+      description: Use this endpoint to delete an Organization. The Organization will remain in our records and appear in the [List Organizations](https://docs.lerian.studio/reference/list-organizations/) and [Retrieve an Organization](https://docs.lerian.studio/reference/retrieve-organization/) endpoint responses, with the deletedAt field showing the deletion date.
+      tags:
+        - Organizations API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+      responses:
+        '204':
+          description: Indicates that the resource was successfully deleted. 
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorFormat'
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorFormat'
+              examples:
+                Error0007:
+                  $ref: "#/components/examples/Error0007"
+      security: []
+ 
+  
+  
+  /v1/organizations/{organization_id}/ledgers:
+    post:
+      summary: Create a Ledger
+      description: Use this endpoint to create a Ledger.
+      tags:
+        - Ledgers API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLedgerRequest'
+            example: |-
+              {
+                "name": "Hilll - Hessel",
+                "status": {
+                    "code": "ACTIVE",
+                    "description": "Teste Ledger"
+                },
+                "metadata": {
+                    "chave": "metadata_chave",
+                    "bitcoinn": "randomBitcoin",
+                    "boolean": true,
+                    "double": 10.5,
+                    "int": 1
+                }
+              }
+      responses:
+        '201':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateLedgerResponse'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorFormat'
+              examples:
+                Error0009:
+                  $ref: "#/components/examples/Error0009"
+                Error0047:
+                  $ref: "#/components/examples/Error0047"
+                Error0053:
+                  $ref: "#/components/examples/Error0053"
+                Error0067:
+                  $ref: "#/components/examples/Error0067"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorFormat'
+              examples:
+                Error0038:
+                  $ref: "#/components/examples/Error0038"
+        '409':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorFormat'
+              examples:
+                Error0002:
+                  $ref: "#/components/examples/Error0002"
+      security: []
+    get:
+      summary: List Ledgers
+      description: Use this endpoint to retrieve the details of all the Ledgers in an Organization.
+      tags:
+        - Ledgers API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+        - name: limit
+          in: query
+          description: "The maximum number of items to include in the response. Max: 100"
+          required: true
+          example: '10'
+          schema:
+            type: string
+        - name: start_date
+          in: query
+          description: The beginning of the period you want to retrieve. You must also include the end_date.
+          required: false
+          example: '2021-01-01'
+          schema:
+            type: string
+        - name: end_date
+          in: query
+          description: The end of the period you want to retrieve. You must also include the start_date.
+          required: false
+          example: '2025-01-01'
+          schema:
+            type: string
+        - name: sort_order
+          in: query
+          description: The order used to sort the results.
+          required: false
+          example: asc
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: The number of the page that you want to retrieve.
+          required: true
+          example: '1'
+          schema:
+            type: string
+        - name: metadata.key
+          in: query
+          description: Any Metadata the entity should have.
+          required: false
+          example: mymetadata
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CreateLedgerResponse'
+                  page:
+                    type: integer
+                    description: The number of pages returned.
+                  limit:
+                    type: integer
+                    description: The maximum number of items included in the response.
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+                Error0079:
+                  $ref: "#/components/examples/Error0079"
+                Error0080:
+                  $ref: "#/components/examples/Error0080"
+                Error0081:
+                  $ref: "#/components/examples/Error0081"
+                Error0083:
+                  $ref: "#/components/examples/Error0083"
+      security: []
+
+  /v1/organizations/{organization_id}/ledgers/{ledger_id}:
+    get:
+      summary: Retrieve a Ledger
+      description: Use this endpoint to retrieve the details of a specific Ledger by its identifier. If a ledger has been deleted, the information of the ledger will be displayed, including the date when the deletion occurred in the <code>deletedAt</code> field.
+      tags:
+        - Ledgers API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+      responses:
+        '200':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateLedgerResponse'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0007:
+                  $ref: "#/components/examples/Error0007"
+      security: []
+    patch:
+      summary: Update a Ledger
+      description: Use this endpoint to update the details of a Ledger.
+      tags:
+        - Ledgers API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLedgerRequest'
+            example: |-
+              {
+                "name": "BLOCKED Tech LTDA",
+                "status": {
+                    "code": "BLOCKED",
+                    "description": "Teste BLOCKED Ledger"
+                },
+                "metadata": {
+                    "chave": "metadata_chave",
+                    "bitcoinn": "randomBitcoin",
+                    "boolean": true,
+                    "double": 10.5,
+                    "int": 1
+                }
+              }
+      responses:
+        '200':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateLedgerResponse'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0047:
+                  $ref: "#/components/examples/Error0047"
+                Error0053:
+                  $ref: "#/components/examples/Error0053"
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+                Error0067:
+                  $ref: "#/components/examples/Error0067"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0007:
+                  $ref: "#/components/examples/Error0007"
+      security: []
+    delete:
+      summary: Delete a Ledger
+      description: Use this endpoint to delete a Ledger. The Ledger will remain in our records and appear in the [List Ledgers](https://docs.lerian.studio/reference/list-ledgers#/) and [Retrieve a Ledger](https://docs.lerian.studio/reference/retrieve-ledger#/) endpoint responses, with the <code>deletedAt</code> field showing the deletion date.
+      tags:
+        - Ledgers API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+      responses:
+        '204':
+          description: Indicates that the resource was successfully deleted.
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0007:
+                  $ref: "#/components/examples/Error0007"
+      security: []
+
+  
+  
+  /v1/organizations/{organization_id}/ledgers/{ledger_id}/assets:
+    post:
+      summary: Create an Asset
+      description: Use this endpoint to create the Asset that will be used with the transactions. You can create multiple Assets. However, the Assets must be created one at a time, with each Asset requiring specific decimal place settings and other individual parameters to be defined during the creation process.
+      tags:
+        - Assets API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateAssetRequest"
+            example: |-
+              {
+                "name": "Brazilian Real",
+                "type": "currency",
+                "code": "BRL",
+                "status": {
+                  "code": "ACTIVE",
+                  "description": "Teste asset 1"
+                },
+                "metadata": {
+                  "chave": "metadata_chave",
+                  "bitcoinn": "randomBitcoin",
+                  "boolean": true,
+                  "double": 10.5,
+                  "int": 1
+                }
+              }
+      responses:
+        '201':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateAssetResponse"
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0004:
+                  $ref: "#/components/examples/Error0004"
+                Error0005:
+                  $ref: "#/components/examples/Error0005"
+                Error0009:
+                  $ref: "#/components/examples/Error0009"
+                Error0033:
+                  $ref: "#/components/examples/Error0033"
+                Error0038:
+                  $ref: "#/components/examples/Error0038"
+                Error0040:
+                  $ref: "#/components/examples/Error0040"
+                Error0047:
+                  $ref: "#/components/examples/Error0047"
+                Error0053:
+                  $ref: "#/components/examples/Error0053"
+                Error0067:
+                  $ref: "#/components/examples/Error0067"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0037:
+                  $ref: "#/components/examples/Error0037"
+        '409':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0003:
+                  $ref: "#/components/examples/Error0003"
+      security: []
+    get:
+      summary: List Assets
+      description: Use this endpoint to retrieve the details of all Assets in your Ledger.
+      tags:
+        - Assets API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+        - name: limit
+          in: query
+          description: "The maximum number of items to include in the response. Max: 100"
+          required: true
+          example: '10'
+          schema:
+            type: string
+        - name: start_date
+          in: query
+          description: The beginning of the period you want to retrieve. You must also include the end_date.
+          required: false
+          example: '2021-01-01'
+          schema:
+            type: string
+        - name: end_date
+          in: query
+          description: The end of the period you want to retrieve. You must also include the start_date.
+          required: false
+          example: '2025-01-01'
+          schema:
+            type: string
+        - name: sort_order
+          in: query
+          description: The order used to sort the results.
+          required: false
+          example: asc
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: The number of the page that you want to retrieve.
+          required: true
+          example: '1'
+          schema:
+            type: string
+        - name: metadata.key
+          in: query
+          description: Any Metadata the entity should have.
+          required: false
+          example: mymetadata
+          schema:
+            type: string
+        - name: code
+          in: query
+          description: The code used to refer to the Asset.
+          required: false
+          example: BRL
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CreateAssetResponse'
+                  page:
+                    type: integer
+                    description: The number of pages returned.
+                  limit:
+                    type: integer
+                    description: The maximum number of items included in the response.
+          headers: {}
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+                Error0079:
+                  $ref: "#/components/examples/Error0079"
+                Error0080:
+                  $ref: "#/components/examples/Error0080"
+                Error0081:
+                  $ref: "#/components/examples/Error0081"
+                Error0083:
+                  $ref: "#/components/examples/Error0083"
+      security: []
+  
+  /v1/organizations/{organization_id}/ledgers/{ledger_id}/assets/{asset_id}:
+    get:
+      summary: Retrieve an Asset
+      description: Use this endpoint to retrieve the details of a specific Asset by its identifier.
+      tags:
+        - Assets API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+        - $ref: "#/components/parameters/AssetId"
+      responses:
+        '200':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAssetResponse'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0007:
+                  $ref: "#/components/examples/Error0007"
+      security: []
+    patch:
+      summary: Update an Asset
+      description: Use this endpoint to update the details of an Asset.
+      tags:
+        - Assets API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+        - $ref: "#/components/parameters/AssetId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateAssetRequest"
+            example:
+              name: Bitcoin
+              status:
+                code: BLOCKED
+                description: BLOCKED ASSET
+              metadata:
+                chave: keyAsset
+                boolean: true
+                double: 10.5
+                int: 1
+      responses:
+        '200':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateAssetResponse"
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0047:
+                  $ref: "#/components/examples/Error0047"
+                Error0053:
+                  $ref: "#/components/examples/Error0053"
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+                Error0067:
+                  $ref: "#/components/examples/Error0067"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0007:
+                  $ref: "#/components/examples/Error0007"
+      security: []
+    delete:
+      summary: Delete an Asset
+      description: Use this endpoint to delete an Asset.
+      tags:
+        - Assets API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+        - $ref: "#/components/parameters/AssetId"
+      responses:
+        '204':
+          description: Indicates that the resource was successfully deleted.
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0007:
+                  $ref: "#/components/examples/Error0007"
+      security: []
+  
+  
+  
+  /v1/organizations/{organization_id}/ledgers/{ledger_id}/segments:
+    post:
+      summary: Create a Segment
+      description: Use this endpoint to create a Segment.
+      tags:
+        - Segments API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateSegmentRequest"
+            example: |-
+              {
+                "name": "Segment",
+                "status": {
+                  "code": "ACTIVE",
+                  "description": "Teste Segment"
+                },
+                "metadata": {
+                  "chave": "metadata_chave",
+                  "bitcoinn": "randomBitcoin",
+                  "boolean": true,
+                  "double": 10.5,
+                  "int": 1
+                }
+              }
+      responses:
+        '201':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateSegmentResponse"
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0009:
+                  $ref: "#/components/examples/Error0009"
+                Error0047:
+                  $ref: "#/components/examples/Error0047"
+                Error0053:
+                  $ref: "#/components/examples/Error0053"
+                Error0067:
+                  $ref: "#/components/examples/Error0067"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0037:
+                  $ref: "#/components/examples/Error0037"
+                Error0038:
+                  $ref: "#/components/examples/Error0038"
+        '409':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0015:
+                  $ref: "#/components/examples/Error0015"
+      security: []
+    get:
+      summary: List Segments
+      description: Use this endpoint to retrieve the details of all Segments in your Ledger.
+      tags:
+        - Segments API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+        - name: limit
+          in: query
+          description: "The maximum number of items to include in the response. Max: 100"
+          required: true
+          example: '10'
+          schema:
+            type: string
+        - name: start_date
+          in: query
+          description: The beginning of the period you want to retrieve. You must also include the end_date.
+          required: false
+          example: '2021-01-01'
+          schema:
+            type: string
+        - name: end_date
+          in: query
+          description: The end of the period you want to retrieve. You must also include the start_date.
+          required: false
+          example: '2025-01-01'
+          schema:
+            type: string
+        - name: sort_order
+          in: query
+          description: The order used to sort the results.
+          required: false
+          example: asc
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: The number of the page that you want to retrieve.
+          required: true
+          example: '1'
+          schema:
+            type: string
+        - name: metadata.key
+          in: query
+          description: Any Metadata the entity should have.
+          required: false
+          example: mymetadata
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CreateSegmentResponse'
+                  page:
+                    type: integer
+                    description: The number of pages returned.
+                  limit:
+                    type: integer
+                    description: The maximum number of items included in the response.
+          headers: {}
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+                Error0079:
+                  $ref: "#/components/examples/Error0079"
+                Error0080:
+                  $ref: "#/components/examples/Error0080"
+                Error0081:
+                  $ref: "#/components/examples/Error0081"
+                Error0083:
+                  $ref: "#/components/examples/Error0083"
+      security: []
+  
+  /v1/organizations/{organization_id}/ledgers/{ledger_id}/segments/{segment_id}:
+    get:
+      summary: Retrieve a Segment
+      description: Use this endpoint to retrieve the details of a specific Segment by its identifier.
+      tags:
+        - Segments API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+        - $ref: "#/components/parameters/SegmentId"
+      responses:
+        '200':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateSegmentResponse'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0007:
+                  $ref: "#/components/examples/Error0007"
+      security: []
+    patch:
+      summary: Update a Segment
+      description: Use this endpoint to update the details of a Segment.
+      tags:
+        - Segments API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+        - $ref: "#/components/parameters/SegmentId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSegmentRequest'
+            example: |-
+              {
+                "name": "BLOCKED product",
+                "status": {
+                  "code": "BLOCKED",
+                  "description": "Teste Product BLOCKED"
+                },
+                "metadata": {
+                    "chave": "metadata_chave",
+                    "bitcoinn": "randomBitcoin",
+                    "boolean": true,
+                    "double": 10.5,
+                    "int": 1
+                }
+              }
+      responses:
+        '200':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateSegmentResponse'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0047:
+                  $ref: "#/components/examples/Error0047"
+                Error0053:
+                  $ref: "#/components/examples/Error0053"
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+                Error0067:
+                  $ref: "#/components/examples/Error0067"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0007:
+                  $ref: "#/components/examples/Error0007"
+      security: []
+    delete:
+      summary: Delete a Segment
+      description: Use this endpoint to delete a specific Segment.
+      tags:
+        - Segments API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+        - $ref: "#/components/parameters/SegmentId"
+      responses:
+        '204':
+          description: Indicates that the resource was successfully deleted.
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0007:
+                  $ref: "#/components/examples/Error0007"
+      security: []
+  
+  
+  
+  /v1/organizations/{organization_id}/ledgers/{ledger_id}/portfolios:
+    post:
+      summary: Create a Portfolio
+      description: Use this endpoint to create a Portfolio.
+      tags:
+        - Portfolios API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePortfolioRequest'
+            example: |-
+              {
+                "entityId": "randomUUID",
+                "name": "Portfolio's name",
+                "status": {
+                  "code": "ACTIVE",
+                  "description": "Teste Portfolio"
+                },
+                "metadata": {
+                  "chave": "metadata_chave",
+                  "bitcoinn": "randomBitcoin",
+                  "boolean": true,
+                  "double": 10.5,
+                  "int": 1
+                }
+              }
+      responses:
+        '201':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePortfolioResponse'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0009:
+                  $ref: "#/components/examples/Error0009"
+                Error0047:
+                  $ref: "#/components/examples/Error0047"
+                Error0053:
+                  $ref: "#/components/examples/Error0053"
+                Error0067:
+                  $ref: "#/components/examples/Error0067"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0037:
+                  $ref: "#/components/examples/Error0037"
+                Error0038:
+                  $ref: "#/components/examples/Error0038"
+      security: []
+    get:
+      summary: List Portfolios
+      description: Use this endpoint to retrieve the details of all Portfolios in your Ledger. If the filters in the request do not meet the endpoint's criteria, an empty response will be returned.
+      tags:
+        - Portfolios API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+        - name: limit
+          in: query
+          description: "The maximum number of items to include in the response. Max: 100"
+          required: true
+          example: '10'
+          schema:
+            type: string
+        - name: start_date
+          in: query
+          description: The beginning of the period you want to retrieve. You must also include the end_date.
+          required: false
+          example: '2021-01-01'
+          schema:
+            type: string
+        - name: end_date
+          in: query
+          description: The end of the period you want to retrieve. You must also include the start_date.
+          required: false
+          example: '2025-01-01'
+          schema:
+            type: string
+        - name: sort_order
+          in: query
+          description: The order used to sort the results.
+          required: false
+          example: asc
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: The number of the page that you want to retrieve.
+          required: true
+          example: '1'
+          schema:
+            type: string
+        - name: metadata.key
+          in: query
+          description: Any Metadata the entity should have.
+          required: false
+          example: mymetadata
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CreatePortfolioResponse'
+                  page:
+                    type: integer
+                    description: The number of pages returned.
+                  limit:
+                    type: integer
+                    description: The maximum number of items included in the response.
+          headers: {}
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+                Error0079:
+                  $ref: "#/components/examples/Error0079"
+                Error0080:
+                  $ref: "#/components/examples/Error0080"
+                Error0081:
+                  $ref: "#/components/examples/Error0081"
+                Error0083:
+                  $ref: "#/components/examples/Error0083"
+      security: []
+  
+  /v1/organizations/{organization_id}/ledgers/{ledger_id}/portfolios/{portfolio_id}:
+    get:
+      summary: Retrieve a Portfolio
+      description: Use this endpoint to retrieve the details of a specific Portfolio by its identifier.
+      tags:
+        - Portfolios API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+        - $ref: "#/components/parameters/PortfolioId"
+      responses:
+        '200':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePortfolioResponse'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0007:
+                  $ref: "#/components/examples/Error0007"
+      security: []
+    patch:
+      summary: Update a Portfolio
+      description: Use this endpoint to update the details of a Portfolio.
+      tags:
+        - Portfolios API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+        - $ref: "#/components/parameters/PortfolioId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePortfolioRequest'
+            example: |-
+              {
+                "name": "Portfolio 3 UPDATE",
+                "status": {
+                  "code": "BLOCKED",
+                  "description": "Teste Portfolio 3 Update"
+                },
+                "metadata": {
+                  "chave": "metadata_chave",
+                  "bitcoinn": "randomBitcoin",
+                  "boolean": true,
+                  "double": 10.5,
+                  "int": 1
+                }
+              }
+      responses:
+        '200':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePortfolioResponse'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0047:
+                  $ref: "#/components/examples/Error0047"
+                Error0053:
+                  $ref: "#/components/examples/Error0053"
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+                Error0067:
+                  $ref: "#/components/examples/Error0067"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0007:
+                  $ref: "#/components/examples/Error0007"
+      security: []
+    delete:
+      summary: Delete a Portfolio
+      description: Use this endpoint to delete a Portfolio.
+      tags:
+        - Portfolios API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+        - $ref: "#/components/parameters/PortfolioId"
+      responses:
+        '204':
+          description: Indicates that the resource was successfully deleted.
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0007:
+                  $ref: "#/components/examples/Error0007"
+      security: []
+
+  
+  
+  /v1/organizations/{organization_id}/ledgers/{ledger_id}/account-types:
+    post:
+      summary: Create an Account Type
+      description: Use this endpoint to create an Account Type. You can create multiple Account Types, but they must be added one at a time.
+      tags:
+        - Account types API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAccountTypeRequest'
+            example:
+              name: Cash Account
+              description: Account type for liquid assets held in cash or cash equivalents.
+              keyValue: CASH
+              metadata:
+                customField: customValue
+      responses:
+        '201':
+          description: Indicates that the resource was successfully created and the operation was completed as expected.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAccountTypeResponse'
+          headers: {}
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorFormat'
+              examples:
+                Error0009:
+                  $ref: "#/components/examples/Error0009"
+                Error0047:
+                  $ref: "#/components/examples/Error0047"
+                Error0120:
+                  $ref: "#/components/examples/Error0120"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorFormat'
+              examples:
+                Error0037:
+                  $ref: "#/components/examples/Error0037"
+                Error0038:
+                  $ref: "#/components/examples/Error0038"
+        '409':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorFormat'
+              examples:
+                Error0108:
+                  $ref: "#/components/examples/Error0108"
+      security:
+        - bearer: []
+    get:
+      summary: List Account Types
+      description: Use this endpoint to retrieve the details of all the Account Types you have created.
+      tags:
+        - Account types API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - name: limit
+          in: query
+          description: The maximum number of items to include in the response.
+          required: false
+          example: '10'
+          schema:
+            type: string
+        - name: start_date
+          in: query
+          description: The beginning of the period you want to retrieve. You must also include the end_date.
+          required: false
+          example: '2021-01-01'
+          schema:
+            type: string
+        - name: end_date
+          in: query
+          description: The end of the period you want to retrieve. You must also include the start_date.
+          required: false
+          example: '2025-01-01'
+          schema:
+            type: string
+        - name: sort_order
+          in: query
+          description: The order used to sort the results.
+          required: false
+          example: asc
+          schema:
+            type: string
+        - name: cursor
+          in: query
+          description: The position in a dataset where the next page of results should start.
+          required: false
+          example: eyJpZCI6IjAxOTNiNTZmLWJhY2YtNzQ0MS05NDU4LTEyZTE5MjVlOGI4NCIsInBvaW50c19uZXh0Ijp0cnVlfQ==
+          schema:
+            type: string
+        - name: metadata.newField
+          in: query
+          description: The new field that will be included in the research as metadata.
+          required: false
+          example: newField
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Indicates that the resource was successfully created and the operation was completed as expected.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CreateAccountTypeResponse'
+          headers: {}
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorFormat'
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+                Error0079:
+                  $ref: "#/components/examples/Error0079"
+                Error0080:
+                  $ref: "#/components/examples/Error0080"
+                Error0081:
+                  $ref: "#/components/examples/Error0081"
+                Error0083:
+                  $ref: "#/components/examples/Error0083"
+      security:
+        - bearer: []
+  
+  /v1/organizations/{organization_id}/ledgers/{ledger_id}/account-types/{account_type_id}:
+    get:
+      summary: Retrieve an Account Type
+      description: Use this endpoint to retrieve the details of a specific Account Type by its identifier.
+      tags:
+        - Account types API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/AccountTypeId"
+      responses:
+        '200':
+          description: Indicates that the resource was successfully created and the operation was completed as expected.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAccountTypeResponse'
+          headers: {}
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorFormat'
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorFormat'
+              examples:
+                Error0037:
+                  $ref: "#/components/examples/Error0037"
+                Error0038:
+                  $ref: "#/components/examples/Error0038"
+                Error0109:
+                  $ref: "#/components/examples/Error0109"
+      security:
+        - bearer: []
+    patch:
+      summary: Update an Account Type
+      description: Use this endpoint to update the details of an Account Type.
+      tags:
+        - Account types API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/AccountTypeId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAccountTypeRequest'
+            example:
+              name: Updated Cash Account
+              description: Updated account type for liquid assets held in cash or cash equivalents.
+              metadata:
+                customField: updatedValue
+                newField: newField
+      responses:
+        '200':
+          description: Indicates that the resource was successfully created and the operation was completed as expected.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAccountTypeResponse'
+          headers: {}
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorFormat'
+              examples:
+                Error0047:
+                  $ref: "#/components/examples/Error0047"
+                Error0053:
+                  $ref: "#/components/examples/Error0053"
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorFormat'
+              examples:
+                Error0037:
+                  $ref: "#/components/examples/Error0037"
+                Error0038:
+                  $ref: "#/components/examples/Error0038"
+                Error0109:
+                  $ref: "#/components/examples/Error0109"
+      security:
+        - bearer: []
+    delete:
+      summary: Delete an Account Type
+      description: Use this endpoint to delete a specific Account Type.
+      tags:
+        - Account types API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/AccountTypeId"
+      responses:
+        '204':
+          description: Indicates that the resource was successfully deleted.
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorFormat'
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorFormat'
+              examples:
+                Error0037:
+                  $ref: "#/components/examples/Error0037"
+                Error0038:
+                  $ref: "#/components/examples/Error0038"
+                Error0109:
+                  $ref: "#/components/examples/Error0109"
+      security:
+        - bearer: []
+  
+  
+  
+  /v1/organizations/{organization_id}/ledgers/{ledger_id}/accounts:
+    post:
+      summary: Create an Account
+      description: |
+        Use this endpoint to create an Account in Midaz. You can create as many accounts as necessary to structure your ledger, but each request creates only one account at a time.
+
+        **Important:** Before creating an Account, ensure the corresponding Asset already exists. Use the [Create an Asset](https://docs.lerian.studio/reference/create-an-asset) endpoint to register it if needed.
+
+        If you have previously defined Account Types, make sure they are properly configured before account creation. We recommend either recreating existing accounts or updating them to include the correct type before enabling the Account Type validation feature — this helps prevent validation errors and ensures compliance with your accounting structure.
+      tags:
+      - Accounts API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAccountRequest'
+            example:
+              assetCode: BRL
+              name: Brazilian Real Account
+              alias: '@brl_wallet'
+              type: deposit
+              parentAccountId: 'e1ed3a74-654a-4b44-ad7d-37a9fac46d71'
+              portfolioId: 'e1ed3a74-654a-4b44-ad7d-37a9fac46d72'
+              entityId: 'e1ed3a74-654a-4b44-ad7d-37a9fac46d88'
+              segmentId: 'e1ed3a74-654a-4b44-ad7d-37a9fac46d90'
+              status:
+                code: ACTIVE
+                description: Account Created
+              metadata:
+                accountNumber: '450987'
+                accountBranch: '4433'
+      responses:
+        '201':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAccountResponse'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0009:
+                  $ref: "#/components/examples/Error0009"
+                Error0029:
+                  $ref: "#/components/examples/Error0029"
+                Error0047:
+                  $ref: "#/components/examples/Error0047"
+                Error0053:
+                  $ref: "#/components/examples/Error0053"
+                Error0066:
+                  $ref: "#/components/examples/Error0066"
+                Error0067:
+                  $ref: "#/components/examples/Error0067"
+          headers: {}
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0034:
+                  $ref: "#/components/examples/Error0034"
+                Error0035:
+                  $ref: "#/components/examples/Error0035"
+                Error0036:
+                  $ref: "#/components/examples/Error0036"
+                Error0037:
+                  $ref: "#/components/examples/Error0037"
+                Error0038:
+                  $ref: "#/components/examples/Error0038"
+        '409':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0020:
+                  $ref: "#/components/examples/Error0020"
+      security: []
+    get:
+      summary: List Accounts
+      description: Use this endpoint to list all accounts in your Ledger.
+      tags:
+        - Accounts API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+        - name: limit
+          in: query
+          description: "The maximum number of items to include in the response. Max: 100"
+          required: true
+          example: '10'
+          schema:
+            type: string
+        - name: start_date
+          in: query
+          description: The beginning of the period you want to retrieve. You must also include the end_date.
+          required: false
+          example: '2021-01-01'
+          schema:
+            type: string
+        - name: end_date
+          in: query
+          description: The end of the period you want to retrieve. You must also include the start_date.
+          required: false
+          example: '2025-01-01'
+          schema:
+            type: string
+        - name: sort_order
+          in: query
+          description: The order used to sort the results.
+          required: false
+          example: asc
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: The number of the page that you want to retrieve.
+          required: true
+          example: '1'
+          schema:
+            type: string
+        - name: metadata.key
+          in: query
+          description: Any Metadata the entity should have.
+          required: false
+          example: mymetadata
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CreateAccountResponse'
+                  page:
+                    type: integer
+                    description: The number of pages returned.
+                  limit:
+                    type: integer
+                    description: The maximum number of items included in the response.
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+                Error0079:
+                  $ref: "#/components/examples/Error0079"
+                Error0080:
+                  $ref: "#/components/examples/Error0080"
+                Error0081:
+                  $ref: "#/components/examples/Error0081"
+                Error0083:
+                  $ref: "#/components/examples/Error0083"
+      security: []
+  
+  /v1/organizations/{organization_id}/ledgers/{ledger_id}/accounts/{account_id}:
+    get:
+      summary: Retrieve an Account
+      description: Use this endpoint to retrieve the details of a specific Account by its identifier.
+      tags:
+        - Accounts API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+        - $ref: "#/components/parameters/AccountId"
+      responses:
+        '200':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAccountResponse'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0007:
+                  $ref: "#/components/examples/Error0007"
+      security: []
+    patch:
+      summary: Update an Account
+      description: Use this endpoint to update the details of an Account.
+      tags:
+        - Accounts API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+        - $ref: "#/components/parameters/AccountId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateAccountRequest"
+            example:
+              name: Brazilian Real Account
+              parentAccountId: e1ed3a74-654a-4b44-ad7d-37a9fac46d71
+              portfolioId: e1ed3a74-654a-4b44-ad7d-37a9fac46d72
+              segmentId: e1ed3a74-654a-4b44-ad7d-37a9fac46d99
+              entityId: e1ed3a74-654a-4b44-ad7d-37a9fac46d08
+              status:
+                code: ACTIVE
+                description: Account Created
+              metadata: {}
+      responses:
+        '200':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateAccountResponse"
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0047:
+                  $ref: "#/components/examples/Error0047"
+                Error0053:
+                  $ref: "#/components/examples/Error0053"
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+                Error0067:
+                  $ref: "#/components/examples/Error0067"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0007:
+                  $ref: "#/components/examples/Error0007"
+          headers: {}
+      security: []
+    delete:
+      summary: Delete an Account
+      description: | 
+        Use this endpoint to delete a specific Account.
+
+        > <b>Important:</b> You cannot delete an account with a remaining balance. First, transfer the amount to another account before deactivating it.
+      tags:
+        - Accounts API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+        - $ref: "#/components/parameters/AccountId"
+      responses:
+        '204':
+          description: Indicates that the resource was successfully deleted.
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0007:
+                  $ref: "#/components/examples/Error0007"
+      security: []
+  
+  /v1/organizations/{organization_id}/ledgers/{ledger_id}/accounts/alias/{alias}:
+    get:
+      summary: Retrieve an Account by Alias
+      description: Use this endpoint to retrieve the details of a specific Account by its alias.
+      tags:
+        - Accounts API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+        - $ref: "#/components/parameters/AccountAlias"
+      responses:
+        '200':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAccountResponse'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0085:
+                  $ref: "#/components/examples/Error0085"
+      security: []
+  
+  /v1/organizations/{organization_id}/ledgers/{ledger_id}/accounts/external/{asset_code}:
+    get:
+      summary: Retrieve an External Account
+      description: Use this endpoint to retrieve the details of a specific External Account by its asset code.
+      tags:
+        - Accounts API
+      parameters:
+        - $ref: "#/components/parameters/OrganizationId"
+        - $ref: "#/components/parameters/LedgerId"
+        - $ref: "#/components/parameters/ContentType"
+        - $ref: "#/components/parameters/XRequestId"
+        - $ref: "#/components/parameters/AssetCode"
+      responses:
+        '200':
+          description: Indicates that the request was successful and the response contains the expected data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAccountResponse'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0065:
+                  $ref: "#/components/examples/Error0065"
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorFormat"
+              examples:
+                Error0085:
+                  $ref: "#/components/examples/Error0085"
+      security: []
+
+
+components:
+  
+  parameters:
+    
+    MetadataKey:
+      name: metadata.key
+      in: query
+      description: The metadata key provided when the Organization was created.
+      required: false
+      example: mymetadata
+      schema:
+        type: string
+
+    AssetCode:
+      name: asset_code
+      in: path
+      description: The code that identifies the Asset used in the Account.
+      required: true
+      example: BRL
+      schema:
+        type: string
+
+    AccountId:
+      name: account_id
+      in: path
+      description:  The unique identifier of the account that you want to retrieve, delete or update.
+      required: true
+      example: 01946120-0f45-7c5f-86a0-0ea7c59fdbd4
+      schema:
+        type: string
+    
+    PortfolioId:
+      name: portfolio_id
+      in: path
+      description:  The unique identifier of the portfolio that you want to retrieve, delete or update.
+      required: true
+      example: 01946120-0f45-7c5f-86a0-0ea7c59fdbd4
+      schema:
+        type: string
+
+    SegmentId:
+      name: segment_id
+      in: path
+      description: The unique identifier of the segment that you want to retrieve, delete or update.
+      required: true
+      schema:
+        type: string
+    
+    AssetId:
+      name: asset_id
+      in: path
+      description: The unique identifier of the asset that you want to retrieve, delete or update.
+      required: true
+      example: 01946120-0f45-7c5f-86a0-0ea7c59fdbd4
+      schema:
+        type: string
+
+    AccountAlias:
+      name: alias
+      in: path
+      description: The alias for the account used in the operation.
+      required: true
+      schema:
+        type: string
+
+    OperationId:
+      name: operation_id
+      in: path
+      description: The unique identifier of the operation that you want to retrieve, delete or update.
+      required: true
+      example: 01946120-0f45-7c5f-86a0-0ea7c59fdbd4
+      schema:
+        type: string
+
+    OrganizationId:
+      name: organization_id
+      in: path
+      description: The unique identifier of the Organization associated with the Ledger.
+      required: true
+      example: 01946120-0f45-7c5f-86a0-0ea7c59fdbd4
+      schema:
+        type: string
+    
+    LedgerId:
+      name: ledger_id
+      in: path
+      description: The unique identifier of the associated Ledger.
+      required: true
+      example: 01946123-14ea-7575-aa2a-addbd8457348
+      schema:
+        type: string
+    
+    ContentType:
+      name: Content-Type
+      in: header
+      description: The type of media of the resource. Must be <code>application/json</code>.
+      required: true
+      example: application/json
+      schema:
+        type: string
+    
+    XRequestId:
+      name: X-Request-Id
+      in: header
+      description: A unique identifier used to trace and track each request.
+      required: false
+      example: 01946120-0f45-7c5f-86a0-0ea7c59fdbd4
+      schema:
+        type: string
+
+    AccountTypeId:
+      name: account_type_id
+      in: path
+      description: The unique identifier of the Account Type that you want to retrieve.
+      required: true
+      example: 01946120-0f45-7c5f-86a0-0ea7c59fdbd5
+      schema:
+        type: string
+    
+    XIdempotency:
+      name: X-Idempotency
+      in: header
+      description: A unique key that ensures transaction idempotency. If not provided, the system automatically generates a hash based on the transaction data.
+      required: false
+      example: 01946120-0f45-7c5f-86a0-0ea7c59fdbd4
+      schema:
+        type: string
+    
+    XTTL:
+      name: X-TTL
+      in: header
+      description: The time-to-live for the key, defined in seconds.
+      required: false
+      example: 3600
+      schema:
+        type: integer
+  
+  schemas:
+    CreateOrganizationRequest:
+      type: object
+      properties:
+        legalName:
+          type: string
+          description: The legal name of the Organization.
+          maxLength: 256
+        parentOrganizationId:
+          type:
+            - string
+            - 'null'
+          description: The unique identifier of the parent Organization.
+          format: uuid
+        doingBusinessAs:
+          type:
+            - string
+            - 'null'
+          maxLength: 256
+          description: The trade name of the Organization.
+        legalDocument:
+          type: string
+          description: The document of the Organization.
+          maxLength: 256
+        status:
+          $ref: "#/components/schemas/StatusOrganization"
+        address:
+          $ref: "#/components/schemas/AddressOrganization"
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      required:
+        - legalName
+        - address
+        - legalDocument
+    
+    ErrorFormat:
+      type: object
+      properties:
+        code:
+          type: string
+          description: A unique, stable identifier for the error.
+        title:
+          type: string
+          description: A brief summary of the issue.
+        message:
+          type: string
+          description: Detailed guidance for resolving the error.
+      required:
+        - code
+        - title
+        - message
+      description: The response message error.
+    
+    StatusOrganization:
+      type: object
+      description: An object containing information about the status.
+      properties:
+        status:
+          type: object
+          properties:
+            description:
+              type:
+                - string
+                - 'null'
+              maxLength: 256
+              description: The description of the status.
+            code:
+              type: string
+              maxLength: 100
+              description: The name of the status.
+          
+    AddressOrganization:
+      type: object
+      required:
+        - line1
+        - line2
+        - zipCode
+        - city
+        - state
+        - country
+      description: An object containing information about the address of the Organization.
+      properties:
+        line1:
+          type: string
+          description: The first line of the address. Usually used to inform the name of the street and the number of the building.
+        line2:
+          type: string
+          description: The second line of the address. Usually used to inform about any complements such as the number of the apartment.
+        zipCode:
+          type: string
+          description: The postal code (only numbers).
+        city:
+          type: string
+          description: The name of the city where the Organization is established.
+        state:
+          type: string
+          description: The two-letter abbreviation that represents the State where the Organization is.
+        country:
+          description: The two-letter code (ISO 3166-1 alpha2) that represents the country where the Organization is.
+          type: string
+      
+    Metadata:
+      type: object
+      additionalProperties:
+        type: string
+      description: "An object containing key-value pairs to add as metadata, where the field <code>name</code> is the key and the field <code>value</code> is the value. For example, to add a Cost Center, use 'costCenter': 'BR_11101997'."
+    
+    CreateOrganizationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the Organization.
+        legalName:
+          type: string
+          description: The legal name of the Organization.
+          maxLength: 256
+        parentOrganizationId:
+          type:
+            - string
+            - 'null'
+          description: The unique identifier of the parent Organization.
+          format: uuid
+        doingBusinessAs:
+          type:
+            - string
+            - 'null'
+          maxLength: 256
+          description: The trade name of the Organization.
+        legalDocument:
+          type: string
+          description: The document of the Organization.
+          maxLength: 256
+        status:
+          $ref: "#/components/schemas/StatusOrganization"
+        address:
+          $ref: "#/components/schemas/AddressOrganization"
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp of creation (UTC).
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp of last update (UTC).
+        deletedAt:
+          type:
+            - string
+            - 'null'
+          format: date-time
+          description: Timestamp of soft deletion, if applicable (UTC).
+
+    UpdateOrganizationRequest:
+      type: object
+      properties:
+        legalName:
+          type: string
+          description: The legal name of the Organization.
+          maxLength: 256
+        parentOrganizationId:
+          type:
+            - string
+            - 'null'
+          description: The unique identifier of the parent Organization.
+          format: uuid
+        doingBusinessAs:
+          type:
+            - string
+            - 'null'
+          maxLength: 256
+          description: The trade name of the Organization.
+        legalDocument:
+          type: string
+          description: The document of the Organization.
+          maxLength: 256
+        status:
+          $ref: "#/components/schemas/StatusOrganization"
+        address:
+          $ref: "#/components/schemas/AddressOrganization"
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      required:
+        - legalName
+    
+    CreateLedgerRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the Ledger.
+          maxLength: 256
+        status:
+          $ref: "#/components/schemas/StatusOrganization"
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      required:
+        - name
+    
+    CreateLedgerResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the Ledger.
+          format: uuid
+        organizationId:
+          type: string
+          format: uuid
+          description: The unique identifier of the Organization.
+        name:
+          type: string
+          description: The name of the Ledger.
+          maxLength: 256
+        status:
+          $ref: "#/components/schemas/StatusOrganization"
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp of creation (UTC).
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp of last update (UTC).
+        deletedAt:
+          type:
+            - string
+            - 'null'
+          format: date-time
+          description: Timestamp of soft deletion, if applicable (UTC).
+
+    UpdateLedgerRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the Ledger.
+          maxLength: 256
+        status:
+          $ref: "#/components/schemas/StatusOrganization"
+        metadata:
+          $ref: "#/components/schemas/Metadata"      
+      required:
+        - name
+    
+    CreatePortfolioRequest:
+      type: object
+      properties:
+        entityId:
+          type: string
+          description: The unique identifier of the user responsible for the portfolio.
+        name:
+          type: string
+          description: The name of the portfolio.
+        status:
+          $ref: "#/components/schemas/StatusOrganization"
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      required:
+        - name
+    
+    CreatePortfolioResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the portfolio.
+          format: uuid
+        organizationId:
+          type: string
+          format: uuid
+          description: The unique identifier of the Organization.
+        ledgerId:
+          type: string
+          description: The unique identifier of the Ledger.
+          format: uuid
+        entityId:
+          type: string
+          description: The unique identifier of the user responsible for the portfolio.
+        name:
+          type: string
+          description: The name of the Portfolio.
+          maxLength: 256
+        status:
+          $ref: "#/components/schemas/StatusOrganization"
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp of creation (UTC).
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp of last update (UTC).
+        deletedAt:
+          type:
+            - string
+            - 'null'
+          format: date-time
+          description: Timestamp of soft deletion, if applicable (UTC).
+ 
+    UpdatePortfolioRequest:
+      type: object
+      properties:
+        entityId:
+          type: string
+          description: The unique identifier of the user responsible for the portfolio.
+        name:
+          type: string
+          description: The name of the portfolio.
+        status:
+          $ref: "#/components/schemas/StatusOrganization"
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      required:
+        - name
+    
+    CreateSegmentRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the Segment.
+          maxLength: 256
+        status:
+          $ref: "#/components/schemas/StatusOrganization"
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      required:
+        - name
+    
+    CreateSegmentResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the Segment.
+          format: uuid
+        organizationId:
+          type: string
+          format: uuid
+          description: The unique identifier of the Organization.
+        ledgerId:
+          type: string
+          description: The unique identifier of the Ledger.
+          format: uuid
+        name:
+          type: string
+          description: The name of the Segment.
+          maxLength: 256
+        status:
+          $ref: "#/components/schemas/StatusOrganization"
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp of creation (UTC).
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp of last update (UTC).
+        deletedAt:
+          type:
+            - string
+            - 'null'
+          format: date-time
+          description: Timestamp of soft deletion, if applicable (UTC).
+    
+    UpdateSegmentRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the Segment.
+          maxLength: 256
+        status:
+          $ref: "#/components/schemas/StatusOrganization"
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      required:
+        - name
+    
+    CreateAssetRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the Asset, which must be <b>unique</b>.
+          maxLength: 256
+        type:
+          type: string
+          description: The type of Asset.
+          enum:
+            - currency
+            - crypto
+            - commodity
+            - others
+          format: enum
+        code:
+          type: string
+          description: The code used to refer to the Asset, according to its type. <b>Important:</b> It's not possible to create assets with the same type and code. Also, if the Asset is a currency (<code>type</code> = currency), the code must follow the ISO 4217 values.
+        status:
+          $ref: "#/components/schemas/StatusOrganization"
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      required:
+        - name
+        - type
+        - code
+    
+    CreateAssetResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the Asset.
+          format: uuid
+        organizationId:
+          type: string
+          format: uuid
+          description: The unique identifier of the Organization.
+        ledgerId:
+          type: string
+          description: The unique identifier of the Ledger.
+          format: uuid
+        name:
+          type: string
+          description: The name of the Asset.
+          maxLength: 256
+        type:
+          type: string
+          description: The type of Asset.
+          enum:
+            - currency
+            - crypto
+            - commodity
+            - others
+          format: enum
+        code:
+          type: string
+          description: The code used to refer to the Asset. 
+        status:
+          $ref: "#/components/schemas/StatusOrganization"
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp of creation (UTC).
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp of last update (UTC).
+        deletedAt:
+          type:
+            - string
+            - 'null'
+          format: date-time
+          description: Timestamp of soft deletion, if applicable (UTC).
+    
+    UpdateAssetRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the Asset.
+          maxLength: 256
+        status:
+          $ref: "#/components/schemas/StatusOrganization"
+        metadata:
+          $ref: "#/components/schemas/Metadata"         
+      required:
+        - name
+    
+    CreateAccountRequest:
+      type: object
+      properties:
+        assetCode:
+          type: string
+          description: The code that identifies the Asset used in the Account. <b>Important:</b> Must be an Asset that you've already created using the [Create an Asset](https://docs.lerian.studio/reference/create-an-asset) endpoint.
+        name:
+          type: string
+          description: The name of the Account.
+          maxLength: 256
+        alias:
+          type: string
+          maxLength: 100
+          description: A unique, user-friendly identifier for the account. Used to reference the account in transactions and other operations. If not provided, the system will use the account's ID as the alias.
+        type:
+          type: string
+          description: Specifies the Account Type associated with the account. <b>Important:</b> When Account Type validation is enabled for your Organization and Ledger, this field becomes **mandatory** and must match an existing <code>keyValue</code> defined in your [Account Types configuration](https://docs.lerian.studio/v3/reference/create-an-account-type#/). However, when validation is disabled (default behavior), this field is **optional** and accepts any free-form string without validation.
+        parentAccountId:
+          type:
+            - string
+            - 'null'
+          format: uuid
+          description: The unique identifier of the Parent Account. If the account does not have a parent account, this field will be null.
+        entityId:
+          type:
+            - string
+            - 'null'
+          description: The unique identifier of the Entity responsible for the Account.
+        portfolioId:
+          type:
+            - string
+            - 'null'
+          description: The unique identifier of the associated Portfolio.
+          format: uuid
+        segmentId:
+          type:
+            - string
+            - 'null'
+          description: The unique identifier of the Segment which is used to cluster the Account.
+          format: uuid
+        status:
+          $ref: "#/components/schemas/StatusOrganization"
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      required:
+        - assetCode
+        - alias
+    
+    CreateAccountResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the Account.
+          format: uuid
+        organizationId:
+          type: string
+          format: uuid
+          description: The unique identifier of the Organization.
+        ledgerId:
+          type: string
+          description: The unique identifier of the Ledger.
+          format: uuid
+        assetCode:
+          type: string
+          description: The code that identifies the Asset used in the Account.
+        name:
+          type: string
+          description: The name of the Account.
+          maxLength: 256
+        alias:
+          type: string
+          description: A unique, user-friendly identifier for the account. Used to reference the account in transactions and other operations.
+        type:
+          type: string
+          description: Specifies the Account Type associated with the account.
+        parentAccountId:
+          type:
+            - string
+            - 'null'
+          format: uuid
+          description: The unique identifier of the Parent Account.
+        entityId:
+          type:
+            - string
+            - 'null'
+          description: The unique identifier of the Entity responsible for the Account.
+        portfolioId:
+          type:
+            - string
+            - 'null'
+          description: The unique identifier of the associated Portfolio.
+          format: uuid
+        segmentId:
+          type:
+            - string
+            - 'null'
+          description: The unique identifier of the Segment which is used to cluster the Account.
+          format: uuid
+        status:
+          $ref: "#/components/schemas/StatusOrganization"
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp of creation (UTC).
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp of last update (UTC).
+        deletedAt:
+          type:
+            - string
+            - 'null'
+          format: date-time
+          description: Timestamp of soft deletion, if applicable (UTC).
+
+    UpdateAccountRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the Account.
+          maxLength: 256
+        parentAccountId:
+          type:
+            - string
+            - 'null'
+          format: uuid
+          description: The unique identifier of the Parent Account. If the account does not have a parent account, this field will be null.
+        entityId:
+          type:
+            - string
+            - 'null'
+          description: The unique identifier of the Entity responsible for the Account.
+        portfolioId:
+          type:
+            - string
+            - 'null'
+          description: The unique identifier of the associated Portfolio.
+          format: uuid
+        segmentId:
+          type:
+            - string
+            - 'null'
+          description: The unique identifier of the Segment which is used to cluster the Account.
+          format: uuid
+        status:
+          $ref: "#/components/schemas/StatusOrganization"
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+  
+    
+    
+    CreateAccountTypeRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the Account Type.
+        description:
+          type: string
+          description: Description of the Account Type.
+        keyValue:
+          type: string
+          description: | 
+            Unique identifier for the Account Type being created.
+            **Important:** If the Account Types feature is enabled, this value becomes **mandatory** when [creating accounts](https://docs.lerian.studio/v3/reference/create-an-account#/) — only previously registered <code>keyValues</code> will be accepted in the <code>type</code> field of the Accounts API.
+            Accepted characters: lowercase alphanumeric, dashes (-), and underscores (_).
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      required:
+        - name
+        - keyValue
+    
+    CreateAccountTypeResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the Account Type.
+          format: uui
+        name:
+          type: string
+          description: Name of the Account Type.
+        description:
+          type: string
+          description: Dscription of the Account Type.
+        keyValue:
+          type: string
+          description: Unique identifier for the Account Type created.
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp of creation (UTC).
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp of last update (UTC).
+        deletedAt:
+          type:
+            - string
+            - 'null'
+          format: date-time
+          description: Timestamp of soft deletion, if applicable (UTC).
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+    
+    UpdateAccountTypeRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the Account Type.
+        description:
+          type: string
+          description: Description of the Account Type.
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+   
+  examples:
+
+    Error0002:
+      summary: "Ledger Name Conflict"
+      value:
+        code: '0002'
+        title: "Ledger Name Conflict"
+        message: "A ledger named {{name}} already exists in your organization. Please rename the ledger, or if you want to use the same name, consider creating a new ledger for a different division."
+      
+    Error0003:
+      summary: "Asset Name or Code Duplicate"
+      value:
+        code: '0003'
+        title: "Asset Name or Code Duplicate"
+        message: "An asset with the same name or code already exists in your ledger. Please modify the name or code of your new asset."
+    
+    Error0004:
+      summary: "Code Uppercase Requirement"
+      value:
+        code: '0004'
+        title: "Code Uppercase Requirement"
+        message: "The code must be in uppercase. Please ensure that the code is in uppercase format and try again."
+    
+    Error0005:
+      summary: "Currency Code Standard Compliance"
+      value:
+        code: '0005'
+        title: "Currency Code Standard Compliance"
+        message: "Currency-type assets must comply with the ISO-4217 standard. Please use a currency code that conforms to ISO-4217 guidelines."
+    
+    Error0007:
+      summary: "Entity Not Found"
+      value:
+        code: "0007"
+        title: "Entity Not Found"
+        message: "No entity was found for the given ID. Please make sure to use the correct ID for the entity you are trying to manage."
+
+    Error0009:
+      summary: "Missing Fields in Request"
+      value:
+        code: '0009'
+        title: "Missing Fields in Request"
+        message: "Your request is missing one or more required fields. Please refer to the documentation to ensure all necessary fields are included in your request."
+    
+    Error0015:
+      summary: "Duplicate Segment Name Error"
+      value:
+        code: '0015'
+        title: "Duplicate Segment Name Error"
+        message: "A segment with the name {{name}} already exists for this ledger ID {{ledgerId}}. Please try again with a different ledger or name."
+    
+    Error0017:
+      summary: "Invalid Script Format"
+      value:
+        code: '0017'
+        title: "Invalid Script Format Error"
+        message: "The script provided in your request is invalid or in an unsupported format. Please verify the script format and try again."
+  
+    Error0018:
+      summary: "Insufficient Funds"
+      value:
+        code: '0018'
+        title: "Insufficient Funds Error"
+        message: "The transaction could not be completed due to insufficient funds in the account. Please add sufficient funds to your account and try again."    
+  
+    Error0019:
+      summary: "Account Ineligibility"
+      value:
+        code: '0019'
+        title: "Account Ineligibility Error"
+        message: "One or more accounts listed in the transaction are not eligible to participate. Please review the account statuses and try again."
+  
+    Error0020:
+      summary: "Alias Unavailability Error"
+      value:
+        code: '0020'
+        title: "Alias Unavailability Error"
+        message: "The alias {{alias}} is already in use. Please choose a different alias and try again."
+      
+    Error0021:
+      summary: "ParentTransactionID Not Found"
+      value:
+        code: '0021'
+        title: "Parent Transaction ID Not Found"
+        message: "The parentTransactionId {{parentTransactionId}} does not correspond to any existing transaction. Please review the ID and try again."
+  
+    Error0022:
+      summary: "Immutable Field Error"
+      value:
+        code: "0022"
+        title: "Immutable Field Error"
+        message: "The {{field}} field cannot be modified. Please remove this field from your request and try again."
+    
+    Error0023:
+      summary: "Transaction Timing Restriction"
+      value:
+        code: '0023'
+        title: "Transaction Timing Restriction"
+        message: "You can only perform another transaction using {{assetCode}} of {{amount}} from {{source}} to {{destination}} after {{timestampUnlock}}. Please wait until the specified time to try again."
+    
+    Error0024:
+      summary: "Account Status Transaction Restriction"
+      value:
+        code: '0024'
+        title: "Account Status Transaction Restriction"
+        message: "The current statuses of the source and/or destination accounts do not permit transactions. Change the account status(es) and try again."
+
+    Error0025:
+      summary: "Insufficient Account Balance"
+      value:
+        code: '0025'
+        title: "Insufficient Account Balance Error"
+        message: "The account {{accountId}} does not have sufficient balance. Please try again with an amount that is less than or equal to the available balance."
+  
+    Error0026:
+      summary: "Transaction Method Restriction"
+      value:
+        code: '0026'
+        title: "Transaction Method Restriction"
+        message: "Transactions involving {{assetCode}} are not permitted for the specified source and/or destination. Please try again using accounts that allow transactions with {{assetCode}}."
+
+    Error0029:
+      summary: "Invalid Parent Account ID"
+      value:
+        code: '0029'
+        title: "Invalid Parent Account ID"
+        message: "The specified parent account ID does not exist. Please verify the ID is correct and try your request again."
+
+    Error0032:
+      summary: "Invalid Country Code"
+      value:
+        code: '0032'
+        title: "Invalid Country Code"
+        message: "The provided country code in the 'address.country' field does not conform to the ISO-3166 alpha-2 standard. Please provide a valid alpha-2 country code."
+    
+    Error0033:
+      summary: "Invalid Code Format"
+      value:
+        code: '0033'
+        title: "Invalid Code Format"
+        message: "The 'code' field must be alphanumeric, in upper case, and must contain at least one letter. Please provide a valid code."
+    
+    Error0034:
+      summary: "Asset Code Not Found"
+      value:
+        code: '0034'
+        title: "Asset Code Not Found"
+        message: "The provided asset code does not exist in our records. Please verify the asset code and try again."
+
+    Error0035:
+      summary: "Portfolio ID Not Found"
+      value:
+        code: "0035"
+        title: "Portfolio ID Not Found"
+        message: "The provided portfolio ID does not exist in our records. Please verify the portfolio ID and try again."
+
+    Error0036:
+      summary: "Segment ID Not Found"
+      value:
+        code: "0036"
+        title: "Segment ID Not Found"
+        message: "The provided segment ID does not exist in our records. Please verify the segment ID and try again."
+
+    Error0037:
+      summary: "Ledger ID Not Found"
+      value:
+        code: '0037'
+        title: "Ledger ID Not Found"
+        message: "The provided ledger ID does not exist in our records. Please verify the ledger ID and try again."
+    
+    Error0038:
+      summary: "Organization ID Not Found"
+      value:
+        code: '0038'
+        title: "Organization ID Not Found"
+        message: "The provided organization ID does not exist in our records. Please verify the organization ID and try again."
+    
+    Error0039:
+      summary: "Parent Organization ID Not Found"
+      value:
+        code: '0039'
+        title: "Parent Organization ID Not Found"
+        message: "The provided parent organization ID does not exist in our records. Please verify the parent organization ID and try again."
+    
+    Error0040:
+      summary: "Invalid Type"
+      value:
+        code: '0040'
+        title: "Invalid Type"
+        message: "The provided 'type' is not valid. Accepted types are: currency, crypto, commodities, or others. Please provide a valid type."
+    
+    Error0047:
+      summary: "Bad Request"
+      value:
+        code: '0047'
+        title: "Bad Request"
+        message: "The server could not understand the request due to malformed syntax. Please check the listed fields and try again."
+    
+    Error0053:
+      summary: "Unexpected Fields in the Request"
+      value:
+        code: '0053'
+        title: "Unexpected Fields in the Request"
+        message: "The request body contains more fields than expected. Please send only the allowed fields as per the documentation. The unexpected fields are listed in the fields object."
+    
+    Error0065:
+      summary: "Invalid Path Parameter"
+      value:
+        code: '0065'
+        title: "Invalid Path Parameter"
+        message: "The provided path parameter {{parameter_name}} is not in the expected format. Please ensure the parameter adheres to the required format and try again."
+
+    Error0066:
+      summary: "Invalid Account Type"
+      value:
+        code: '0066'
+        title: "Invalid Account Type"
+        message: "The provided 'type' is not valid. Accepted types are: deposit, savings, loans, marketplace, cerditCard or external. Please provide a valid type."
+    
+    Error0067:
+      summary: "Invalid Metadata Nesting"
+      value:
+        code: '0067'
+        title: "Invalid Metadata Nesting"
+        message: "The metadata object cannot contain nested values. Please ensure that the value {{value}} is not nested and try again."
+    
+    Error0073:
+      summary: "Transaction Value Mismatch"
+      value:
+        code: '0073'
+        title: "Transaction Value Mismatch"
+        message: "The values for the source, the destination, or both do not match the specified transaction amount. Please verify the values and try again."
+    
+    Error0079:
+      summary: "Date Range Exceeds Limit Error"
+      value:
+        code: '0079'
+        title: "Date Range Exceeds Limit Error"
+        message: "The range between 'initialDate' and 'finalDate' exceeds the permitted limit of {{limit}} months. Please adjust the dates and try again."
+
+    Error0080:
+      summary: "Pagination Limit Exceeded"
+      value:
+        code: '0080'
+        title: "Pagination Limit Exceeded"
+        message: "The pagination limit exceeds the maximum allowed of {{pageLimit}} items per page. Please verify the limit and try again."
+
+    Error0081:
+      summary: "Invalid Sort Order"
+      value:
+        code: '0081'
+        title: "Invalid Sort Order"
+        message: "The 'sort_order' field must be 'asc' or 'desc'. Please provide a valid sort order and try again."
+
+    Error0083:
+      summary: "Invalid Date Range Error"
+      value:
+        code: '0083'
+        title: "Invalid Date Range Error"
+        message: "Both 'initialDate' and 'finalDate' fields are required and must be in the 'yyyy-mm-dd' format. Please provide valid dates and try again."
+    
+    Error0084:
+      summary: "Duplicate Idempotency Key"
+      value:
+        code: '0084'
+        title: "Duplicate Idempotency Key"
+        message: "The idempotency key '{{key}}' is already in use. Please provide a unique key and try again."
+
+    Error0085:
+      summary: "Account Alias Not Found"
+      value:
+        code: '0085'
+        title: "Account Alias Not Found"
+        message: "The provided account Alias does not exist in our records. Please verify the account Alias and try again."
+
+    Error0108:
+      value:
+        "code": "0108"
+        "title": "Duplicate Account Type Key Value Error"
+        "message": "An account type with the specified key value already exists for this organization and ledger. Please use a different key value or update the existing account type."
+      summary: "Duplicate Account Type Key Value Error"
+
+    Error0109:
+      value:
+        "code": "0109"
+        "message": "The account type you are trying to access does not exist or has been removed."
+        "title": "Account Type Not Found Error"
+      summary: "Account Type Not Found Error"
+
+    Error0120:
+      value:
+        "code": "0120"
+        "title": "Invalid Characters"
+        "message": "The field 'keyValue' contains invalid characters. Use only letters, numbers, underscores and hyphens."
+      summary: "Invalid Characters"
+
+security: []
