@@ -1,103 +1,121 @@
 {
-  "$schema": "https://mintlify.com/docs.json",
-  "theme": "maple",
-  "name": "Example Co.",
-  "description": "Example Co. is a company that provides example content and placeholder text.",
-  "colors": {
-    "primary": "#3B82F6",
-    "light": "#F8FAFC",
-    "dark": "#0F172A"
-  },
-  "navigation": {
-    "dropdowns": [
-      {
-        "dropdown": "Guides",
-        "icon": "book",
-        "description": "How to use the Example Co. product",
-        "groups": [
-          {
-            "group": "Home",
-            "pages": [
-              "guides/home/welcome"
-            ]
-          }      
-        ]
-      },
-      {
-        "dropdown": "API reference",
-        "icon": "terminal",
-        "description": "How to use the Example Co. API",
-        "groups": [
-          {
-            "group": "Midaz APIs",
-            "pages": [
-              "api-reference/midaz/midaz-onboarding.yaml"
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Community",
-        "href": "https://example.com/community"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Get Started",
-      "href": "https://example.com/start"
-    }
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/example",
-      "linkedin": "https://www.linkedin.com/company/example",
-      "github": "https://github.com/example",
-      "slack": "https://example.com/community"
+    "$schema": "https://mintlify.com/docs.json",
+    "theme": "aspen",
+    "name": "Lerian Test",
+    "colors": {
+        "primary": "#FEED02",
+        "light": "#FEED02",
+        "dark": "#FEED02"
     },
-    "links": [
-      {
-        "header": "Resources",
-        "items": [
-          {
-            "label": "Customers",
-            "href": "https://example.com/customers"
-          },
-          {
-            "label": "Enterprise",
-            "href": "https://example.com/enterprise"
-          },
-          {
-            "label": "Request Preview",
-            "href": "https://example.com/preview"
-          }
+    "navigation": {
+        "global": {
+            "anchors": [
+                {
+                    "anchor": "Guides",
+                    "icon": "book",
+                    "href": "guides"
+                },
+                {
+                    "anchor": "API Reference",
+                    "icon": "terminal",
+                    "href": "api-reference"
+                }
+            ]
+        },
+        "languages": [
+            {
+                "language": "en",
+                "dropdowns": [
+                    {
+                        "dropdown": "Guides",
+                        "icon": "book",
+                        "description": "How to use the Example Co. product",
+                        "groups": [
+                            {
+                                "group": "Home",
+                                "pages": [
+                                    "guides/home/welcome"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "dropdown": "API reference",
+                        "icon": "terminal",
+                        "description": "How to use the Example Co. API",
+                        "groups": [
+                            {
+                                "group": "Midaz APIs",
+                                "pages": [
+                                    "api-reference/midaz/midaz-onboarding.yaml"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
         ]
-      },
-      {
-        "header": "Company",
-        "items": [
-          {
-            "label": "Careers",
-            "href": "https://example.com/careers"
-          },
-          {
-            "label": "Blog",
-            "href": "https://example.com/blog"
-          },
-          {
-            "label": "Privacy Policy",
-            "href": "https://example.com/legal/privacy"
-          }
+    },
+    "navbar": {
+        "links": [
+            {
+                "label": "Community",
+                "href": "https://example.com/community"
+            }
+        ],
+        "primary": {
+            "type": "button",
+            "label": "Get Started",
+            "href": "https://example.com/start"
+        }
+    },
+    "footer": {
+        "socials": {
+            "x": "https://x.com/example",
+            "linkedin": "https://www.linkedin.com/company/example",
+            "github": "https://github.com/example",
+            "slack": "https://example.com/community"
+        },
+        "links": [
+            {
+                "header": "Resources",
+                "items": [
+                    {
+                        "label": "Customers",
+                        "href": "https://example.com/customers"
+                    },
+                    {
+                        "label": "Enterprise",
+                        "href": "https://example.com/enterprise"
+                    },
+                    {
+                        "label": "Request Preview",
+                        "href": "https://example.com/preview"
+                    }
+                ]
+            },
+            {
+                "header": "Company",
+                "items": [
+                    {
+                        "label": "Careers",
+                        "href": "https://example.com/careers"
+                    },
+                    {
+                        "label": "Blog",
+                        "href": "https://example.com/blog"
+                    },
+                    {
+                        "label": "Privacy Policy",
+                        "href": "https://example.com/legal/privacy"
+                    }
+                ]
+            }
         ]
-      }
-    ]
-  },
+    },
     "errors": {
-    "404": {
-      "redirect": true
+        "404": {
+            "redirect": true
+        }
     }
-  }
 }
