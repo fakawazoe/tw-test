@@ -12,9 +12,9 @@
          {
             "tab":"Guides",
             "icon":"book",
-            "menu":[
+            "anchors":[
                {
-                  "item":"Midaz",
+                  "anchor":"Midaz",
                   "groups":[
                      {
                         "group":"Home",
@@ -25,12 +25,24 @@
                   ]
                },
                {
-                  "item":"Smart Templates",
-                  "pages":[
-                     "guides/smart-templates-plugin/smart-templates",
-                     "guides/smart-templates-plugin/template-examples/index",
-                     "guides/smart-templates-plugin/template-examples/cadoc-4111"
-                  ]
+                  "anchor":"Smart Templates",
+                 "groups": [
+                   {
+                     "group": "Home",
+                     "pages":[
+                       "guides/smart-templates-plugin/smart-templates",
+                       "guides/smart-templates-plugin/template-examples/index",
+                       "guides/smart-templates-plugin/template-examples/cadoc-4111"
+                    ]
+                   },
+                   {
+                     "group": "template-examples",
+                     "pages":[
+                       "guides/smart-templates-plugin/template-examples/index",
+                       "guides/smart-templates-plugin/template-examples/cadoc-4111"
+                    ]
+                   }
+                 ]
                }
             ]
          },
