@@ -1,102 +1,122 @@
 {
-  "$schema": "https://mintlify.com/docs.json",
-  "theme": "aspen",
-  "name": "Lerian Test",
-  "colors": {
-    "primary": "#37342F",
-    "light": "#37342F",
-    "dark": "#FEED02"
-  },
-  "navigation": {
-    "tabs": [
-      {
-        "tab": "Guides",
-        "icon": "book",
-        "dropdowns": [
-          {
-            "dropdown": "Midaz",
-            "groups": [
-              {
-                "group": "Home",
-                "pages": [
-                  "guides/home/welcome"
-                ]
-              }
+   "$schema":"https://mintlify.com/docs.json",
+   "theme":"aspen",
+   "name":"Lerian Test",
+   "colors":{
+      "primary":"#37342F",
+      "light":"#37342F",
+      "dark":"#FEED02"
+   },
+   "navigation":{
+      "tabs":[
+         {
+            "tab":"Guides",
+            "icon":"book",
+            "dropdowns":[
+               {
+                  "dropdown":"Midaz",
+                  "groups":[
+                     {
+                        "group":"Home",
+                        "pages":[
+                           "guides/home/welcome"
+                        ]
+                     }
+                  ]
+               },
+               {
+                  "dropdown":"Smart Templates",
+                  "groups":[
+                     {
+                        "group":"Home",
+                        "pages":[
+                           "guides/smart-templates-plugin/smart-templates",
+                           {
+                              "page":"guides/smart-templates-plugin/template-examples/index",
+                              "pages":[
+                                 "guides/smart-templates-plugin/template-examples/cadoc-4111"
+                              ]
+                           }
+                        ]
+                     }
+                  ]
+               }
             ]
-          },
-          {
-            "dropdown": "Smart Templates",
-            "groups": [
-              {
-                "group": "Home",
-                "pages": [
-                  "guides/smart-templates-plugin/smart-templates",
-                  {
-                    "page": "guides/smart-templates-plugin/template-examples/index",
-                    "pages": [
-                      "guides/smart-templates-plugin/template-examples/cadoc-4111"
-                    ]
+         },
+         {
+            "tab":"API Reference",
+            "icon":"terminal",
+            "groups":[
+               {
+                  "group":"Midaz APIs",
+                  "openapi":{
+                     "source":"api-reference/midaz/midaz-onboarding.yaml"
                   }
-                ]
-              }
+               }
             ]
-          }
-        ]
+         }
+      ]
+   },
+   "navbar":{
+      "links":[
+         {
+            "label":"Community",
+            "href":"https://example.com/community"
+         }
+      ],
+      "primary":{
+         "type":"button",
+         "label":"Get Started",
+         "href":"https://example.com/start"
+      }
+   },
+   "footer":{
+      "socials":{
+         "x":"https://x.com/example",
+         "linkedin":"https://www.linkedin.com/company/example",
+         "github":"https://github.com/example",
+         "slack":"https://example.com/community"
       },
-      {
-        "tab": "API Reference",
-        "icon": "terminal",
-        "groups": [
-          {
-            "group": "Midaz APIs",
-            "openapi": {
-              "source": "api-reference/midaz/midaz-onboarding.yaml"
-            }
-          }
-        ]
+      "links":[
+         {
+            "header":"Resources",
+            "items":[
+               {
+                  "label":"Customers",
+                  "href":"https://example.com/customers"
+               },
+               {
+                  "label":"Enterprise",
+                  "href":"https://example.com/enterprise"
+               },
+               {
+                  "label":"Request Preview",
+                  "href":"https://example.com/preview"
+               }
+            ]
+         },
+         {
+            "header":"Company",
+            "items":[
+               {
+                  "label":"Careers",
+                  "href":"https://example.com/careers"
+               },
+               {
+                  "label":"Blog",
+                  "href":"https://example.com/blog"
+               },
+               {
+                  "label":"Privacy Policy",
+                  "href":"https://example.com/legal/privacy"
+               }
+            ]
+         }
+      ]
+   },
+   "errors":{
+      "404":{
+         "redirect":true
       }
-    ]
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Community",
-        "href": "https://example.com/community"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Get Started",
-      "href": "https://example.com/start"
-      }
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/example",
-      "linkedin": "https://www.linkedin.com/company/example",
-      "github": "https://github.com/example",
-      "slack": "https://example.com/community"
-    },
-    "links": [
-      {
-        "header": "Resources",
-        "items": [
-          { "label": "Customers", "href": "https://example.com/customers" },
-          { "label": "Enterprise", "href": "https://example.com/enterprise" },
-          { "label": "Request Preview", "href": "https://example.com/preview" }
-        ]
-      },
-      {
-        "header": "Company",
-        "items": [
-          { "label": "Careers", "href": "https://example.com/careers" },
-          { "label": "Blog", "href": "https://example.com/blog" },
-          { "label": "Privacy Policy", "href": "https://example.com/legal/privacy" }
-        ]
-      }
-    ]
-  },
-  "errors": {
-    "404": { "redirect": true }
-  }
+   }
 }
