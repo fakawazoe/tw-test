@@ -30,7 +30,13 @@
                      {
                         "group":"Home",
                         "pages":[
-                           "guides/smart-templates-plugin/smart-templates"
+                           "guides/smart-templates-plugin/smart-templates",
+                           {
+                              "page":"guides/smart-templates-plugin/template-examples/index",
+                              "pages":[
+                                 "guides/smart-templates-plugin/template-examples/cadoc-4111"
+                              ]
+                           }
                         ]
                      },
                      {
