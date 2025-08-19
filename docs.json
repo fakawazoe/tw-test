@@ -58,19 +58,7 @@
          }
       ]
    },
-   "navbar":{
-      "links":[
-         {
-            "label":"Community",
-            "href":"https://example.com/community"
-         }
-      ],
-      "primary":{
-         "type":"button",
-         "label":"Get Started",
-         "href":"https://example.com/start"
-      }
-   },
+
    "footer":{
       "socials":{
          "x":"https://x.com/example",
