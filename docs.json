@@ -12,9 +12,9 @@
          {
             "tab":"Guides",
             "icon":"book",
-            "anchors":[
+            "dropdowns":[
                {
-                  "anchor":"Midaz",
+                  "dropdown":"Midaz",
                   "groups":[
                      {
                         "group":"Home",
@@ -25,7 +25,7 @@
                   ]
                },
                {
-                  "anchor":"Smart Templates",
+                  "dropdown":"Smart Templates",
                  "groups": [
                    {
                      "group": "Home",
