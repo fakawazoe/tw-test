@@ -36,7 +36,6 @@
                      {
                         "group":"Template examples",
                         "pages":[
-                           "guides/smart-templates-plugin/template-examples/index",
                            "guides/smart-templates-plugin/template-examples/cadoc-4111"
                         ]
                      }
