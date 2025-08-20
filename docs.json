@@ -60,6 +60,7 @@
                               "group":"Template examples",
                               "pages":[
                                 "guides/smart-templates-plugin/template-examples/index",
+                                "guides/smart-templates-plugin/template-examples/cadocs/teste1",
                                 "guides/smart-templates-plugin/template-examples/cadocs/cadoc-4010-and-4016"
                               ]
                            }
