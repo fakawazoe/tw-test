@@ -29,7 +29,10 @@
                },
                {
                   "dropdown":"Smart Templates",
-                  "groups":[
+                 "versions": [
+                   {
+                     "version": "1.0.0",
+                     "groups":[
                      {
                         "group":"Home",
                         "pages":[
@@ -44,6 +47,30 @@
                         ]
                      }
                   ]
+                   },
+                   {
+                     "version": "2.0.0"
+                     "groups":[
+                     {
+                        "group":"Home",
+                        "pages":[
+                           "guides/smart-templates-plugin/using-smart-templates",
+                           {
+                              "group":"Template examples",
+                              "pages":[
+                                 "guides/smart-templates-plugin/template-examples/index",
+                                 "guides/smart-templates-plugin/template-examples/cadocs/using-smart-templates"
+                              ]
+                           }
+                        ]
+                     }
+                  ]
+                   }
+                   
+                 ]
+
+                 
+                  
                }
             ]
          },
