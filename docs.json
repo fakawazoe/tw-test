@@ -7,9 +7,8 @@
       "light":"#37342F",
       "dark":"#FEED02"
    },
-  "styling":{
-    "codeblocks": "dark"
-  
+  "fonts": {
+    "family": "IBM Plex Mono"
   },
    "navigation":{
       "tabs":[
