@@ -1,15 +1,8 @@
 ---
 title: Template examples
-excerpt: ''
-deprecated: false
-hidden: false
-metadata:
-  title: ''
-  description: ''
-  robots: index
-next:
-  description: ''
+sidebarTitle: Overview
 ---
+
 The **Smart Templates** plugin supports multiple output formats, so you can generate exactly the file type you need, whether it’s HTML, XML, CSV, or plain text.
 
 On this page, you’ll find practical examples of how to structure your `.tpl` files for each format. These examples are a great starting point to help you design templates that fit your use case, follow formatting rules, and get parsed correctly during generation.
