@@ -7,6 +7,10 @@
       "light":"#37342F",
       "dark":"#FEED02"
    },
+  "styling":{
+    "codeblocks": "dark"
+  
+  },
    "navigation":{
       "tabs":[
          {
