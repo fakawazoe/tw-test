@@ -54,12 +54,13 @@
                      {
                         "group":"Home",
                         "pages":[
-                           "guides/smart-templates-plugin/using-smart-templates",
+                          "guides/smart-templates-plugin/smart-templates",
+                          "guides/smart-templates-plugin/using-smart-templates",
                            {
                               "group":"Template examples",
                               "pages":[
-                                 "guides/smart-templates-plugin/template-examples/index",
-                                 "guides/smart-templates-plugin/template-examples/cadocs/using-smart-templates"
+                                "guides/smart-templates-plugin/template-examples/index",
+                                "guides/smart-templates-plugin/template-examples/cadocs/cadoc-4010-and-4016"
                               ]
                            }
                         ]
